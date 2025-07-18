@@ -1,0 +1,4 @@
+0574023d5be9469709186e01e91a7f2a715d1369		branch 'main' of https://chromium.googlesource.com/crashpad/crashpad
+c5161c6a76b5aaee7004cff8cef37d2e5c99ae23	not-for-merge	branch 'cxx17' of https://chromium.googlesource.com/crashpad/crashpad
+4245aaaed5e965367ee031fce08c73047b4a28cf	not-for-merge	branch 'doc' of https://chromium.googlesource.com/crashpad/crashpad
+2383125af05ea7e0dba944c084016867ee1a58af	not-for-merge	branch 'infra/config' of https://chromium.googlesource.com/crashpad/crashpad

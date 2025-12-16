@@ -97,3 +97,30 @@ add_library(crashpad::crashpad ALIAS crashpad_interface)
 
 # 提示：你已經成功建立了一個名為 crashpad::crashpad 的目標
 message(STATUS "Created target 'crashpad::crashpad' for easy integration.")
+
+# -----------------------------------------------------------------------------
+# 5. [新增] 定义 crashpad_handler 可执行文件目标
+#    这是修复 "Target 'crashpad_handler' not found" 的关键
+# -----------------------------------------------------------------------------
+
+# 确定二进制文件所在的目录 (假设源码结构中 bin 目录下有对应平台的预编译程序)
+if(WIN32)
+    set(CRASHPAD_HANDLER_NAME "crashpad_handler.exe")
+    set(CRASHPAD_BIN_SUBDIR "bin/win")
+elseif(APPLE)
+    set(CRASHPAD_HANDLER_NAME "crashpad_handler")
+    set(CRASHPAD_BIN_SUBDIR "bin/mac")
+else()
+    set(CRASHPAD_HANDLER_NAME "crashpad_handler")
+    set(CRASHPAD_BIN_SUBDIR "bin/linux")
+endif()
+
+set(CRASHPAD_HANDLER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${CRASHPAD_BIN_SUBDIR}/${CRASHPAD_HANDLER_NAME}")
+
+# 定义一个 IMPORTED 目标，指向这个真实存在的文件
+add_executable(crashpad_handler IMPORTED GLOBAL)
+set_target_properties(crashpad_handler PROPERTIES
+    IMPORTED_LOCATION "${CRASHPAD_HANDLER_PATH}"
+)
+
+message(STATUS "Crashpad handler target defined at: ${CRASHPAD_HANDLER_PATH}")
